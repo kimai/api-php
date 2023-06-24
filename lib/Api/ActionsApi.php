@@ -1,6 +1,6 @@
 <?php
 /**
- * UserApi
+ * ActionsApi
  * PHP version 5
  *
  * @category Class
@@ -39,14 +39,14 @@ use Swagger\Client\HeaderSelector;
 use Swagger\Client\ObjectSerializer;
 
 /**
- * UserApi Class Doc Comment
+ * ActionsApi Class Doc Comment
  *
  * @category Class
  * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class UserApi
+class ActionsApi
 {
     /**
      * @var ClientInterface
@@ -87,37 +87,41 @@ class UserApi
     }
 
     /**
-     * Operation getGetUser
+     * Operation getGetActivityActions
      *
-     * Return one user entity
+     * Get all item actions for the given Activity [for internal use]
      *
-     * @param  string $id User ID to fetch (required)
+     * @param  string $id Activity ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
      *
      * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Swagger\Client\Model\UserEntity
+     * @return \Swagger\Client\Model\PageAction
      */
-    public function getGetUser($id)
+    public function getGetActivityActions($id, $view, $locale)
     {
-        list($response) = $this->getGetUserWithHttpInfo($id);
+        list($response) = $this->getGetActivityActionsWithHttpInfo($id, $view, $locale);
         return $response;
     }
 
     /**
-     * Operation getGetUserWithHttpInfo
+     * Operation getGetActivityActionsWithHttpInfo
      *
-     * Return one user entity
+     * Get all item actions for the given Activity [for internal use]
      *
-     * @param  string $id User ID to fetch (required)
+     * @param  string $id Activity ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
      *
      * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Swagger\Client\Model\UserEntity, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Swagger\Client\Model\PageAction, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getGetUserWithHttpInfo($id)
+    public function getGetActivityActionsWithHttpInfo($id, $view, $locale)
     {
-        $returnType = '\Swagger\Client\Model\UserEntity';
-        $request = $this->getGetUserRequest($id);
+        $returnType = '\Swagger\Client\Model\PageAction';
+        $request = $this->getGetActivityActionsRequest($id, $view, $locale);
 
         try {
             $options = $this->createHttpClientOption();
@@ -168,7 +172,7 @@ class UserApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Swagger\Client\Model\UserEntity',
+                        '\Swagger\Client\Model\PageAction',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -179,18 +183,20 @@ class UserApi
     }
 
     /**
-     * Operation getGetUserAsync
+     * Operation getGetActivityActionsAsync
      *
-     * Return one user entity
+     * Get all item actions for the given Activity [for internal use]
      *
-     * @param  string $id User ID to fetch (required)
+     * @param  string $id Activity ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGetUserAsync($id)
+    public function getGetActivityActionsAsync($id, $view, $locale)
     {
-        return $this->getGetUserAsyncWithHttpInfo($id)
+        return $this->getGetActivityActionsAsyncWithHttpInfo($id, $view, $locale)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -199,19 +205,21 @@ class UserApi
     }
 
     /**
-     * Operation getGetUserAsyncWithHttpInfo
+     * Operation getGetActivityActionsAsyncWithHttpInfo
      *
-     * Return one user entity
+     * Get all item actions for the given Activity [for internal use]
      *
-     * @param  string $id User ID to fetch (required)
+     * @param  string $id Activity ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGetUserAsyncWithHttpInfo($id)
+    public function getGetActivityActionsAsyncWithHttpInfo($id, $view, $locale)
     {
-        $returnType = '\Swagger\Client\Model\UserEntity';
-        $request = $this->getGetUserRequest($id);
+        $returnType = '\Swagger\Client\Model\PageAction';
+        $request = $this->getGetActivityActionsRequest($id, $view, $locale);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -251,23 +259,37 @@ class UserApi
     }
 
     /**
-     * Create request for operation 'getGetUser'
+     * Create request for operation 'getGetActivityActions'
      *
-     * @param  string $id User ID to fetch (required)
+     * @param  string $id Activity ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getGetUserRequest($id)
+    protected function getGetActivityActionsRequest($id, $view, $locale)
     {
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling getGetUser'
+                'Missing the required parameter $id when calling getGetActivityActions'
+            );
+        }
+        // verify the required parameter 'view' is set
+        if ($view === null || (is_array($view) && count($view) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $view when calling getGetActivityActions'
+            );
+        }
+        // verify the required parameter 'locale' is set
+        if ($locale === null || (is_array($locale) && count($locale) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $locale when calling getGetActivityActions'
             );
         }
 
-        $resourcePath = '/api/users/{id}';
+        $resourcePath = '/api/actions/activity/{id}/{view}/{locale}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -280,6 +302,22 @@ class UserApi
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
                 ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($view !== null) {
+            $resourcePath = str_replace(
+                '{' . 'view' . '}',
+                ObjectSerializer::toPathValue($view),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($locale !== null) {
+            $resourcePath = str_replace(
+                '{' . 'locale' . '}',
+                ObjectSerializer::toPathValue($locale),
                 $resourcePath
             );
         }
@@ -359,43 +397,41 @@ class UserApi
     }
 
     /**
-     * Operation getGetUsers
+     * Operation getGetCustomerActions
      *
-     * Returns the collection of users (which are visible to the user)
+     * Get all item actions for the given Customer [for internal use]
      *
-     * @param  string $visible Visibility status to filter users: 1&#x3D;visible, 2&#x3D;hidden, 3&#x3D;all (optional, default to 1)
-     * @param  string $order_by The field by which results will be ordered. Allowed values: id, username, alias, email (default: username) (optional)
-     * @param  string $order The result order. Allowed values: ASC, DESC (default: ASC) (optional)
-     * @param  string $term Free search term (optional)
+     * @param  string $id Customer ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
      *
      * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Swagger\Client\Model\UserCollection[]
+     * @return \Swagger\Client\Model\PageAction
      */
-    public function getGetUsers($visible = '1', $order_by = null, $order = null, $term = null)
+    public function getGetCustomerActions($id, $view, $locale)
     {
-        list($response) = $this->getGetUsersWithHttpInfo($visible, $order_by, $order, $term);
+        list($response) = $this->getGetCustomerActionsWithHttpInfo($id, $view, $locale);
         return $response;
     }
 
     /**
-     * Operation getGetUsersWithHttpInfo
+     * Operation getGetCustomerActionsWithHttpInfo
      *
-     * Returns the collection of users (which are visible to the user)
+     * Get all item actions for the given Customer [for internal use]
      *
-     * @param  string $visible Visibility status to filter users: 1&#x3D;visible, 2&#x3D;hidden, 3&#x3D;all (optional, default to 1)
-     * @param  string $order_by The field by which results will be ordered. Allowed values: id, username, alias, email (default: username) (optional)
-     * @param  string $order The result order. Allowed values: ASC, DESC (default: ASC) (optional)
-     * @param  string $term Free search term (optional)
+     * @param  string $id Customer ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
      *
      * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Swagger\Client\Model\UserCollection[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Swagger\Client\Model\PageAction, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getGetUsersWithHttpInfo($visible = '1', $order_by = null, $order = null, $term = null)
+    public function getGetCustomerActionsWithHttpInfo($id, $view, $locale)
     {
-        $returnType = '\Swagger\Client\Model\UserCollection[]';
-        $request = $this->getGetUsersRequest($visible, $order_by, $order, $term);
+        $returnType = '\Swagger\Client\Model\PageAction';
+        $request = $this->getGetCustomerActionsRequest($id, $view, $locale);
 
         try {
             $options = $this->createHttpClientOption();
@@ -446,7 +482,7 @@ class UserApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Swagger\Client\Model\UserCollection[]',
+                        '\Swagger\Client\Model\PageAction',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -457,21 +493,20 @@ class UserApi
     }
 
     /**
-     * Operation getGetUsersAsync
+     * Operation getGetCustomerActionsAsync
      *
-     * Returns the collection of users (which are visible to the user)
+     * Get all item actions for the given Customer [for internal use]
      *
-     * @param  string $visible Visibility status to filter users: 1&#x3D;visible, 2&#x3D;hidden, 3&#x3D;all (optional, default to 1)
-     * @param  string $order_by The field by which results will be ordered. Allowed values: id, username, alias, email (default: username) (optional)
-     * @param  string $order The result order. Allowed values: ASC, DESC (default: ASC) (optional)
-     * @param  string $term Free search term (optional)
+     * @param  string $id Customer ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGetUsersAsync($visible = '1', $order_by = null, $order = null, $term = null)
+    public function getGetCustomerActionsAsync($id, $view, $locale)
     {
-        return $this->getGetUsersAsyncWithHttpInfo($visible, $order_by, $order, $term)
+        return $this->getGetCustomerActionsAsyncWithHttpInfo($id, $view, $locale)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -480,22 +515,21 @@ class UserApi
     }
 
     /**
-     * Operation getGetUsersAsyncWithHttpInfo
+     * Operation getGetCustomerActionsAsyncWithHttpInfo
      *
-     * Returns the collection of users (which are visible to the user)
+     * Get all item actions for the given Customer [for internal use]
      *
-     * @param  string $visible Visibility status to filter users: 1&#x3D;visible, 2&#x3D;hidden, 3&#x3D;all (optional, default to 1)
-     * @param  string $order_by The field by which results will be ordered. Allowed values: id, username, alias, email (default: username) (optional)
-     * @param  string $order The result order. Allowed values: ASC, DESC (default: ASC) (optional)
-     * @param  string $term Free search term (optional)
+     * @param  string $id Customer ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGetUsersAsyncWithHttpInfo($visible = '1', $order_by = null, $order = null, $term = null)
+    public function getGetCustomerActionsAsyncWithHttpInfo($id, $view, $locale)
     {
-        $returnType = '\Swagger\Client\Model\UserCollection[]';
-        $request = $this->getGetUsersRequest($visible, $order_by, $order, $term);
+        $returnType = '\Swagger\Client\Model\PageAction';
+        $request = $this->getGetCustomerActionsRequest($id, $view, $locale);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -535,564 +569,37 @@ class UserApi
     }
 
     /**
-     * Create request for operation 'getGetUsers'
+     * Create request for operation 'getGetCustomerActions'
      *
-     * @param  string $visible Visibility status to filter users: 1&#x3D;visible, 2&#x3D;hidden, 3&#x3D;all (optional, default to 1)
-     * @param  string $order_by The field by which results will be ordered. Allowed values: id, username, alias, email (default: username) (optional)
-     * @param  string $order The result order. Allowed values: ASC, DESC (default: ASC) (optional)
-     * @param  string $term Free search term (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    protected function getGetUsersRequest($visible = '1', $order_by = null, $order = null, $term = null)
-    {
-
-        $resourcePath = '/api/users';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-        // query params
-        if ($visible !== null) {
-            $queryParams['visible'] = ObjectSerializer::toQueryValue($visible, null);
-        }
-        // query params
-        if ($order_by !== null) {
-            $queryParams['orderBy'] = ObjectSerializer::toQueryValue($order_by, null);
-        }
-        // query params
-        if ($order !== null) {
-            $queryParams['order'] = ObjectSerializer::toQueryValue($order, null);
-        }
-        // query params
-        if ($term !== null) {
-            $queryParams['term'] = ObjectSerializer::toQueryValue($term, null);
-        }
-
-
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires API key authentication
-        $apiKey = $this->config->getApiKeyWithPrefix('X-AUTH-TOKEN');
-        if ($apiKey !== null) {
-            $headers['X-AUTH-TOKEN'] = $apiKey;
-        }
-        // this endpoint requires API key authentication
-        $apiKey = $this->config->getApiKeyWithPrefix('X-AUTH-USER');
-        if ($apiKey !== null) {
-            $headers['X-AUTH-USER'] = $apiKey;
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getMeUser
-     *
-     * Return the current user entity
-     *
-     *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \Swagger\Client\Model\UserEntity
-     */
-    public function getMeUser()
-    {
-        list($response) = $this->getMeUserWithHttpInfo();
-        return $response;
-    }
-
-    /**
-     * Operation getMeUserWithHttpInfo
-     *
-     * Return the current user entity
-     *
-     *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \Swagger\Client\Model\UserEntity, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getMeUserWithHttpInfo()
-    {
-        $returnType = '\Swagger\Client\Model\UserEntity';
-        $request = $this->getMeUserRequest();
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    $response->getBody()
-                );
-            }
-
-            $responseBody = $response->getBody();
-            if ($returnType === '\SplFileObject') {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string','integer','bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Model\UserEntity',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getMeUserAsync
-     *
-     * Return the current user entity
-     *
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getMeUserAsync()
-    {
-        return $this->getMeUserAsyncWithHttpInfo()
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getMeUserAsyncWithHttpInfo
-     *
-     * Return the current user entity
-     *
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getMeUserAsyncWithHttpInfo()
-    {
-        $returnType = '\Swagger\Client\Model\UserEntity';
-        $request = $this->getMeUserRequest();
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ($returnType === '\SplFileObject') {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getMeUser'
-     *
+     * @param  string $id Customer ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getMeUserRequest()
+    protected function getGetCustomerActionsRequest($id, $view, $locale)
     {
-
-        $resourcePath = '/api/users/me';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // body params
-        $_tempBody = null;
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
-            }
-        }
-
-        // this endpoint requires API key authentication
-        $apiKey = $this->config->getApiKeyWithPrefix('X-AUTH-TOKEN');
-        if ($apiKey !== null) {
-            $headers['X-AUTH-TOKEN'] = $apiKey;
-        }
-        // this endpoint requires API key authentication
-        $apiKey = $this->config->getApiKeyWithPrefix('X-AUTH-USER');
-        if ($apiKey !== null) {
-            $headers['X-AUTH-USER'] = $apiKey;
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        return new Request(
-            'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation patchPatchUser
-     *
-     * Update an existing user
-     *
-     * @param  \Swagger\Client\Model\UserEditForm $body body (required)
-     * @param  string $id User ID to update (required)
-     *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \Swagger\Client\Model\UserEntity
-     */
-    public function patchPatchUser($body, $id)
-    {
-        list($response) = $this->patchPatchUserWithHttpInfo($body, $id);
-        return $response;
-    }
-
-    /**
-     * Operation patchPatchUserWithHttpInfo
-     *
-     * Update an existing user
-     *
-     * @param  \Swagger\Client\Model\UserEditForm $body (required)
-     * @param  string $id User ID to update (required)
-     *
-     * @throws \Swagger\Client\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \Swagger\Client\Model\UserEntity, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function patchPatchUserWithHttpInfo($body, $id)
-    {
-        $returnType = '\Swagger\Client\Model\UserEntity';
-        $request = $this->patchPatchUserRequest($body, $id);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    $response->getBody()
-                );
-            }
-
-            $responseBody = $response->getBody();
-            if ($returnType === '\SplFileObject') {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string','integer','bool'])) {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Swagger\Client\Model\UserEntity',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation patchPatchUserAsync
-     *
-     * Update an existing user
-     *
-     * @param  \Swagger\Client\Model\UserEditForm $body (required)
-     * @param  string $id User ID to update (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function patchPatchUserAsync($body, $id)
-    {
-        return $this->patchPatchUserAsyncWithHttpInfo($body, $id)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation patchPatchUserAsyncWithHttpInfo
-     *
-     * Update an existing user
-     *
-     * @param  \Swagger\Client\Model\UserEditForm $body (required)
-     * @param  string $id User ID to update (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function patchPatchUserAsyncWithHttpInfo($body, $id)
-    {
-        $returnType = '\Swagger\Client\Model\UserEntity';
-        $request = $this->patchPatchUserRequest($body, $id);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ($returnType === '\SplFileObject') {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'patchPatchUser'
-     *
-     * @param  \Swagger\Client\Model\UserEditForm $body (required)
-     * @param  string $id User ID to update (required)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    protected function patchPatchUserRequest($body, $id)
-    {
-        // verify the required parameter 'body' is set
-        if ($body === null || (is_array($body) && count($body) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $body when calling patchPatchUser'
-            );
-        }
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling patchPatchUser'
+                'Missing the required parameter $id when calling getGetCustomerActions'
+            );
+        }
+        // verify the required parameter 'view' is set
+        if ($view === null || (is_array($view) && count($view) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $view when calling getGetCustomerActions'
+            );
+        }
+        // verify the required parameter 'locale' is set
+        if ($locale === null || (is_array($locale) && count($locale) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $locale when calling getGetCustomerActions'
             );
         }
 
-        $resourcePath = '/api/users/{id}';
+        $resourcePath = '/api/actions/customer/{id}/{view}/{locale}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1108,12 +615,25 @@ class UserApi
                 $resourcePath
             );
         }
+        // path params
+        if ($view !== null) {
+            $resourcePath = str_replace(
+                '{' . 'view' . '}',
+                ObjectSerializer::toPathValue($view),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($locale !== null) {
+            $resourcePath = str_replace(
+                '{' . 'locale' . '}',
+                ObjectSerializer::toPathValue($locale),
+                $resourcePath
+            );
+        }
 
         // body params
         $_tempBody = null;
-        if (isset($body)) {
-            $_tempBody = $body;
-        }
 
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
@@ -1122,7 +642,7 @@ class UserApi
         } else {
             $headers = $this->headerSelector->selectHeaders(
                 ['application/json'],
-                ['application/json']
+                []
             );
         }
 
@@ -1179,7 +699,7 @@ class UserApi
 
         $query = \GuzzleHttp\Psr7\Query::build($queryParams);
         return new Request(
-            'PATCH',
+            'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -1187,36 +707,41 @@ class UserApi
     }
 
     /**
-     * Operation postPostUser
+     * Operation getGetProjectActions
      *
-     * Creates a new user
+     * Get all item actions for the given Project [for internal use]
      *
-     * @param  \Swagger\Client\Model\UserCreateForm $body body (required)
+     * @param  string $id Project ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
      *
      * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Swagger\Client\Model\PageAction
      */
-    public function postPostUser($body)
+    public function getGetProjectActions($id, $view, $locale)
     {
-        $this->postPostUserWithHttpInfo($body);
+        list($response) = $this->getGetProjectActionsWithHttpInfo($id, $view, $locale);
+        return $response;
     }
 
     /**
-     * Operation postPostUserWithHttpInfo
+     * Operation getGetProjectActionsWithHttpInfo
      *
-     * Creates a new user
+     * Get all item actions for the given Project [for internal use]
      *
-     * @param  \Swagger\Client\Model\UserCreateForm $body (required)
+     * @param  string $id Project ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
      *
      * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Swagger\Client\Model\PageAction, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postPostUserWithHttpInfo($body)
+    public function getGetProjectActionsWithHttpInfo($id, $view, $locale)
     {
-        $returnType = '';
-        $request = $this->postPostUserRequest($body);
+        $returnType = '\Swagger\Client\Model\PageAction';
+        $request = $this->getGetProjectActionsRequest($id, $view, $locale);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1246,28 +771,52 @@ class UserApi
                 );
             }
 
-            return [null, $statusCode, $response->getHeaders()];
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+                if (!in_array($returnType, ['string','integer','bool'])) {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Swagger\Client\Model\PageAction',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
             }
             throw $e;
         }
     }
 
     /**
-     * Operation postPostUserAsync
+     * Operation getGetProjectActionsAsync
      *
-     * Creates a new user
+     * Get all item actions for the given Project [for internal use]
      *
-     * @param  \Swagger\Client\Model\UserCreateForm $body (required)
+     * @param  string $id Project ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPostUserAsync($body)
+    public function getGetProjectActionsAsync($id, $view, $locale)
     {
-        return $this->postPostUserAsyncWithHttpInfo($body)
+        return $this->getGetProjectActionsAsyncWithHttpInfo($id, $view, $locale)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1276,25 +825,41 @@ class UserApi
     }
 
     /**
-     * Operation postPostUserAsyncWithHttpInfo
+     * Operation getGetProjectActionsAsyncWithHttpInfo
      *
-     * Creates a new user
+     * Get all item actions for the given Project [for internal use]
      *
-     * @param  \Swagger\Client\Model\UserCreateForm $body (required)
+     * @param  string $id Project ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPostUserAsyncWithHttpInfo($body)
+    public function getGetProjectActionsAsyncWithHttpInfo($id, $view, $locale)
     {
-        $returnType = '';
-        $request = $this->postPostUserRequest($body);
+        $returnType = '\Swagger\Client\Model\PageAction';
+        $request = $this->getGetProjectActionsRequest($id, $view, $locale);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -1314,23 +879,37 @@ class UserApi
     }
 
     /**
-     * Create request for operation 'postPostUser'
+     * Create request for operation 'getGetProjectActions'
      *
-     * @param  \Swagger\Client\Model\UserCreateForm $body (required)
+     * @param  string $id Project ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function postPostUserRequest($body)
+    protected function getGetProjectActionsRequest($id, $view, $locale)
     {
-        // verify the required parameter 'body' is set
-        if ($body === null || (is_array($body) && count($body) === 0)) {
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $body when calling postPostUser'
+                'Missing the required parameter $id when calling getGetProjectActions'
+            );
+        }
+        // verify the required parameter 'view' is set
+        if ($view === null || (is_array($view) && count($view) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $view when calling getGetProjectActions'
+            );
+        }
+        // verify the required parameter 'locale' is set
+        if ($locale === null || (is_array($locale) && count($locale) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $locale when calling getGetProjectActions'
             );
         }
 
-        $resourcePath = '/api/users';
+        $resourcePath = '/api/actions/project/{id}/{view}/{locale}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1338,21 +917,42 @@ class UserApi
         $multipart = false;
 
 
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($view !== null) {
+            $resourcePath = str_replace(
+                '{' . 'view' . '}',
+                ObjectSerializer::toPathValue($view),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($locale !== null) {
+            $resourcePath = str_replace(
+                '{' . 'locale' . '}',
+                ObjectSerializer::toPathValue($locale),
+                $resourcePath
+            );
+        }
 
         // body params
         $_tempBody = null;
-        if (isset($body)) {
-            $_tempBody = $body;
-        }
 
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
-                []
+                ['application/json']
             );
         } else {
             $headers = $this->headerSelector->selectHeaders(
-                [],
-                ['application/json']
+                ['application/json'],
+                []
             );
         }
 
@@ -1409,7 +1009,317 @@ class UserApi
 
         $query = \GuzzleHttp\Psr7\Query::build($queryParams);
         return new Request(
-            'POST',
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getGetTimesheetActions
+     *
+     * Get all item actions for the given Timesheet [for internal use]
+     *
+     * @param  string $id Timesheet ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
+     *
+     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Swagger\Client\Model\PageAction
+     */
+    public function getGetTimesheetActions($id, $view, $locale)
+    {
+        list($response) = $this->getGetTimesheetActionsWithHttpInfo($id, $view, $locale);
+        return $response;
+    }
+
+    /**
+     * Operation getGetTimesheetActionsWithHttpInfo
+     *
+     * Get all item actions for the given Timesheet [for internal use]
+     *
+     * @param  string $id Timesheet ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
+     *
+     * @throws \Swagger\Client\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Swagger\Client\Model\PageAction, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getGetTimesheetActionsWithHttpInfo($id, $view, $locale)
+    {
+        $returnType = '\Swagger\Client\Model\PageAction';
+        $request = $this->getGetTimesheetActionsRequest($id, $view, $locale);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+                if (!in_array($returnType, ['string','integer','bool'])) {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Swagger\Client\Model\PageAction',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getGetTimesheetActionsAsync
+     *
+     * Get all item actions for the given Timesheet [for internal use]
+     *
+     * @param  string $id Timesheet ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getGetTimesheetActionsAsync($id, $view, $locale)
+    {
+        return $this->getGetTimesheetActionsAsyncWithHttpInfo($id, $view, $locale)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getGetTimesheetActionsAsyncWithHttpInfo
+     *
+     * Get all item actions for the given Timesheet [for internal use]
+     *
+     * @param  string $id Timesheet ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getGetTimesheetActionsAsyncWithHttpInfo($id, $view, $locale)
+    {
+        $returnType = '\Swagger\Client\Model\PageAction';
+        $request = $this->getGetTimesheetActionsRequest($id, $view, $locale);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getGetTimesheetActions'
+     *
+     * @param  string $id Timesheet ID to fetch (required)
+     * @param  string $view View to display the actions at (e.g. index, custom) (required)
+     * @param  string $locale Language to translate the action title to (e.g. de, en) (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function getGetTimesheetActionsRequest($id, $view, $locale)
+    {
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getGetTimesheetActions'
+            );
+        }
+        // verify the required parameter 'view' is set
+        if ($view === null || (is_array($view) && count($view) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $view when calling getGetTimesheetActions'
+            );
+        }
+        // verify the required parameter 'locale' is set
+        if ($locale === null || (is_array($locale) && count($locale) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $locale when calling getGetTimesheetActions'
+            );
+        }
+
+        $resourcePath = '/api/actions/timesheet/{id}/{view}/{locale}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($view !== null) {
+            $resourcePath = str_replace(
+                '{' . 'view' . '}',
+                ObjectSerializer::toPathValue($view),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($locale !== null) {
+            $resourcePath = str_replace(
+                '{' . 'locale' . '}',
+                ObjectSerializer::toPathValue($locale),
+                $resourcePath
+            );
+        }
+
+        // body params
+        $_tempBody = null;
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            $httpBody = $_tempBody;
+            // \stdClass has no __toString(), so we should encode it manually
+            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($httpBody);
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\Query::build($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('X-AUTH-TOKEN');
+        if ($apiKey !== null) {
+            $headers['X-AUTH-TOKEN'] = $apiKey;
+        }
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('X-AUTH-USER');
+        if ($apiKey !== null) {
+            $headers['X-AUTH-USER'] = $apiKey;
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        return new Request(
+            'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

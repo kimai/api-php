@@ -1,6 +1,6 @@
 <?php
 /**
- * TeamEditForm
+ * IdRestartBody
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Swagger\Client\ObjectSerializer;
 
 /**
- * TeamEditForm Class Doc Comment
+ * IdRestartBody Class Doc Comment
  *
  * @category Class
  * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class TeamEditForm implements ModelInterface, ArrayAccess
+class IdRestartBody implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class TeamEditForm implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'TeamEditForm';
+    protected static $swaggerModelName = 'id_restart_body';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,9 +56,8 @@ class TeamEditForm implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'name' => 'string',
-        'color' => 'string',
-        'members' => '\Swagger\Client\Model\TeamEditFormMembers[]'
+        'copy' => 'string',
+        'begin' => 'string'
     ];
 
     /**
@@ -67,9 +66,8 @@ class TeamEditForm implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'name' => null,
-        'color' => null,
-        'members' => null
+        'copy' => null,
+        'begin' => null
     ];
 
     /**
@@ -99,9 +97,8 @@ class TeamEditForm implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'name' => 'name',
-        'color' => 'color',
-        'members' => 'members'
+        'copy' => 'copy',
+        'begin' => 'begin'
     ];
 
     /**
@@ -110,9 +107,8 @@ class TeamEditForm implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'name' => 'setName',
-        'color' => 'setColor',
-        'members' => 'setMembers'
+        'copy' => 'setCopy',
+        'begin' => 'setBegin'
     ];
 
     /**
@@ -121,9 +117,8 @@ class TeamEditForm implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'name' => 'getName',
-        'color' => 'getColor',
-        'members' => 'getMembers'
+        'copy' => 'getCopy',
+        'begin' => 'getBegin'
     ];
 
     /**
@@ -184,9 +179,8 @@ class TeamEditForm implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
-        $this->container['color'] = isset($data['color']) ? $data['color'] : null;
-        $this->container['members'] = isset($data['members']) ? $data['members'] : null;
+        $this->container['copy'] = isset($data['copy']) ? $data['copy'] : null;
+        $this->container['begin'] = isset($data['begin']) ? $data['begin'] : null;
     }
 
     /**
@@ -198,12 +192,6 @@ class TeamEditForm implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['name'] === null) {
-            $invalidProperties[] = "'name' can't be null";
-        }
-        if ($this->container['members'] === null) {
-            $invalidProperties[] = "'members' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -220,73 +208,49 @@ class TeamEditForm implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets name
+     * Gets copy
      *
      * @return string
      */
-    public function getName()
+    public function getCopy()
     {
-        return $this->container['name'];
+        return $this->container['copy'];
     }
 
     /**
-     * Sets name
+     * Sets copy
      *
-     * @param string $name Name of the team
+     * @param string $copy copy
      *
      * @return $this
      */
-    public function setName($name)
+    public function setCopy($copy)
     {
-        $this->container['name'] = $name;
+        $this->container['copy'] = $copy;
 
         return $this;
     }
 
     /**
-     * Gets color
+     * Gets begin
      *
      * @return string
      */
-    public function getColor()
+    public function getBegin()
     {
-        return $this->container['color'];
+        return $this->container['begin'];
     }
 
     /**
-     * Sets color
+     * Sets begin
      *
-     * @param string $color The hexadecimal color code (default: #d2d6de)
+     * @param string $begin begin
      *
      * @return $this
      */
-    public function setColor($color)
+    public function setBegin($begin)
     {
-        $this->container['color'] = $color;
-
-        return $this;
-    }
-
-    /**
-     * Gets members
-     *
-     * @return \Swagger\Client\Model\TeamEditFormMembers[]
-     */
-    public function getMembers()
-    {
-        return $this->container['members'];
-    }
-
-    /**
-     * Sets members
-     *
-     * @param \Swagger\Client\Model\TeamEditFormMembers[] $members All team members
-     *
-     * @return $this
-     */
-    public function setMembers($members)
-    {
-        $this->container['members'] = $members;
+        $this->container['begin'] = $begin;
 
         return $this;
     }

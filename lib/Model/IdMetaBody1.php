@@ -1,6 +1,6 @@
 <?php
 /**
- * ActivityCollection
+ * IdMetaBody1
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Swagger\Client\ObjectSerializer;
 
 /**
- * ActivityCollection Class Doc Comment
+ * IdMetaBody1 Class Doc Comment
  *
  * @category Class
  * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class ActivityCollection implements ModelInterface, ArrayAccess
+class IdMetaBody1 implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class ActivityCollection implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'ActivityCollection';
+    protected static $swaggerModelName = 'id_meta_body_1';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,16 +56,8 @@ class ActivityCollection implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'parent_title' => 'string',
-        'project' => 'int',
-        'id' => 'int',
         'name' => 'string',
-        'comment' => 'string',
-        'visible' => 'bool',
-        'billable' => 'bool',
-        'meta_fields' => '\Swagger\Client\Model\ActivityMeta[]',
-        'teams' => '\Swagger\Client\Model\Team[]',
-        'color' => 'string'
+        'value' => 'string'
     ];
 
     /**
@@ -74,16 +66,8 @@ class ActivityCollection implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'parent_title' => null,
-        'project' => null,
-        'id' => null,
         'name' => null,
-        'comment' => null,
-        'visible' => null,
-        'billable' => null,
-        'meta_fields' => null,
-        'teams' => null,
-        'color' => null
+        'value' => null
     ];
 
     /**
@@ -113,16 +97,8 @@ class ActivityCollection implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'parent_title' => 'parentTitle',
-        'project' => 'project',
-        'id' => 'id',
         'name' => 'name',
-        'comment' => 'comment',
-        'visible' => 'visible',
-        'billable' => 'billable',
-        'meta_fields' => 'metaFields',
-        'teams' => 'teams',
-        'color' => 'color'
+        'value' => 'value'
     ];
 
     /**
@@ -131,16 +107,8 @@ class ActivityCollection implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'parent_title' => 'setParentTitle',
-        'project' => 'setProject',
-        'id' => 'setId',
         'name' => 'setName',
-        'comment' => 'setComment',
-        'visible' => 'setVisible',
-        'billable' => 'setBillable',
-        'meta_fields' => 'setMetaFields',
-        'teams' => 'setTeams',
-        'color' => 'setColor'
+        'value' => 'setValue'
     ];
 
     /**
@@ -149,16 +117,8 @@ class ActivityCollection implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'parent_title' => 'getParentTitle',
-        'project' => 'getProject',
-        'id' => 'getId',
         'name' => 'getName',
-        'comment' => 'getComment',
-        'visible' => 'getVisible',
-        'billable' => 'getBillable',
-        'meta_fields' => 'getMetaFields',
-        'teams' => 'getTeams',
-        'color' => 'getColor'
+        'value' => 'getValue'
     ];
 
     /**
@@ -219,16 +179,8 @@ class ActivityCollection implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['parent_title'] = isset($data['parent_title']) ? $data['parent_title'] : null;
-        $this->container['project'] = isset($data['project']) ? $data['project'] : null;
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['name'] = isset($data['name']) ? $data['name'] : null;
-        $this->container['comment'] = isset($data['comment']) ? $data['comment'] : null;
-        $this->container['visible'] = isset($data['visible']) ? $data['visible'] : null;
-        $this->container['billable'] = isset($data['billable']) ? $data['billable'] : null;
-        $this->container['meta_fields'] = isset($data['meta_fields']) ? $data['meta_fields'] : null;
-        $this->container['teams'] = isset($data['teams']) ? $data['teams'] : null;
-        $this->container['color'] = isset($data['color']) ? $data['color'] : null;
+        $this->container['value'] = isset($data['value']) ? $data['value'] : null;
     }
 
     /**
@@ -243,11 +195,8 @@ class ActivityCollection implements ModelInterface, ArrayAccess
         if ($this->container['name'] === null) {
             $invalidProperties[] = "'name' can't be null";
         }
-        if ($this->container['visible'] === null) {
-            $invalidProperties[] = "'visible' can't be null";
-        }
-        if ($this->container['billable'] === null) {
-            $invalidProperties[] = "'billable' can't be null";
+        if ($this->container['value'] === null) {
+            $invalidProperties[] = "'value' can't be null";
         }
         return $invalidProperties;
     }
@@ -263,78 +212,6 @@ class ActivityCollection implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
-
-    /**
-     * Gets parent_title
-     *
-     * @return string
-     */
-    public function getParentTitle()
-    {
-        return $this->container['parent_title'];
-    }
-
-    /**
-     * Sets parent_title
-     *
-     * @param string $parent_title parent_title
-     *
-     * @return $this
-     */
-    public function setParentTitle($parent_title)
-    {
-        $this->container['parent_title'] = $parent_title;
-
-        return $this;
-    }
-
-    /**
-     * Gets project
-     *
-     * @return int
-     */
-    public function getProject()
-    {
-        return $this->container['project'];
-    }
-
-    /**
-     * Sets project
-     *
-     * @param int $project project
-     *
-     * @return $this
-     */
-    public function setProject($project)
-    {
-        $this->container['project'] = $project;
-
-        return $this;
-    }
-
-    /**
-     * Gets id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->container['id'];
-    }
-
-    /**
-     * Sets id
-     *
-     * @param int $id id
-     *
-     * @return $this
-     */
-    public function setId($id)
-    {
-        $this->container['id'] = $id;
-
-        return $this;
-    }
 
     /**
      * Gets name
@@ -361,145 +238,25 @@ class ActivityCollection implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets comment
+     * Gets value
      *
      * @return string
      */
-    public function getComment()
+    public function getValue()
     {
-        return $this->container['comment'];
+        return $this->container['value'];
     }
 
     /**
-     * Sets comment
+     * Sets value
      *
-     * @param string $comment comment
+     * @param string $value value
      *
      * @return $this
      */
-    public function setComment($comment)
+    public function setValue($value)
     {
-        $this->container['comment'] = $comment;
-
-        return $this;
-    }
-
-    /**
-     * Gets visible
-     *
-     * @return bool
-     */
-    public function getVisible()
-    {
-        return $this->container['visible'];
-    }
-
-    /**
-     * Sets visible
-     *
-     * @param bool $visible visible
-     *
-     * @return $this
-     */
-    public function setVisible($visible)
-    {
-        $this->container['visible'] = $visible;
-
-        return $this;
-    }
-
-    /**
-     * Gets billable
-     *
-     * @return bool
-     */
-    public function getBillable()
-    {
-        return $this->container['billable'];
-    }
-
-    /**
-     * Sets billable
-     *
-     * @param bool $billable billable
-     *
-     * @return $this
-     */
-    public function setBillable($billable)
-    {
-        $this->container['billable'] = $billable;
-
-        return $this;
-    }
-
-    /**
-     * Gets meta_fields
-     *
-     * @return \Swagger\Client\Model\ActivityMeta[]
-     */
-    public function getMetaFields()
-    {
-        return $this->container['meta_fields'];
-    }
-
-    /**
-     * Sets meta_fields
-     *
-     * @param \Swagger\Client\Model\ActivityMeta[] $meta_fields meta_fields
-     *
-     * @return $this
-     */
-    public function setMetaFields($meta_fields)
-    {
-        $this->container['meta_fields'] = $meta_fields;
-
-        return $this;
-    }
-
-    /**
-     * Gets teams
-     *
-     * @return \Swagger\Client\Model\Team[]
-     */
-    public function getTeams()
-    {
-        return $this->container['teams'];
-    }
-
-    /**
-     * Sets teams
-     *
-     * @param \Swagger\Client\Model\Team[] $teams teams
-     *
-     * @return $this
-     */
-    public function setTeams($teams)
-    {
-        $this->container['teams'] = $teams;
-
-        return $this;
-    }
-
-    /**
-     * Gets color
-     *
-     * @return string
-     */
-    public function getColor()
-    {
-        return $this->container['color'];
-    }
-
-    /**
-     * Sets color
-     *
-     * @param string $color color
-     *
-     * @return $this
-     */
-    public function setColor($color)
-    {
-        $this->container['color'] = $color;
+        $this->container['value'] = $value;
 
         return $this;
     }

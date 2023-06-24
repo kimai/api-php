@@ -1,6 +1,6 @@
 <?php
 /**
- * TeamEditForm
+ * TeamEditFormMembers
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Swagger\Client\ObjectSerializer;
 
 /**
- * TeamEditForm Class Doc Comment
+ * TeamEditFormMembers Class Doc Comment
  *
  * @category Class
  * @package  Swagger\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class TeamEditForm implements ModelInterface, ArrayAccess
+class TeamEditFormMembers implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class TeamEditForm implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'TeamEditForm';
+    protected static $swaggerModelName = 'TeamEditForm_members';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,9 +56,8 @@ class TeamEditForm implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'name' => 'string',
-        'color' => 'string',
-        'members' => '\Swagger\Client\Model\TeamEditFormMembers[]'
+        'user' => 'int',
+        'teamlead' => 'bool'
     ];
 
     /**
@@ -67,9 +66,8 @@ class TeamEditForm implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'name' => null,
-        'color' => null,
-        'members' => null
+        'user' => null,
+        'teamlead' => null
     ];
 
     /**
@@ -99,9 +97,8 @@ class TeamEditForm implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'name' => 'name',
-        'color' => 'color',
-        'members' => 'members'
+        'user' => 'user',
+        'teamlead' => 'teamlead'
     ];
 
     /**
@@ -110,9 +107,8 @@ class TeamEditForm implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'name' => 'setName',
-        'color' => 'setColor',
-        'members' => 'setMembers'
+        'user' => 'setUser',
+        'teamlead' => 'setTeamlead'
     ];
 
     /**
@@ -121,9 +117,8 @@ class TeamEditForm implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'name' => 'getName',
-        'color' => 'getColor',
-        'members' => 'getMembers'
+        'user' => 'getUser',
+        'teamlead' => 'getTeamlead'
     ];
 
     /**
@@ -184,9 +179,8 @@ class TeamEditForm implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
-        $this->container['color'] = isset($data['color']) ? $data['color'] : null;
-        $this->container['members'] = isset($data['members']) ? $data['members'] : null;
+        $this->container['user'] = isset($data['user']) ? $data['user'] : null;
+        $this->container['teamlead'] = isset($data['teamlead']) ? $data['teamlead'] : null;
     }
 
     /**
@@ -198,12 +192,6 @@ class TeamEditForm implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['name'] === null) {
-            $invalidProperties[] = "'name' can't be null";
-        }
-        if ($this->container['members'] === null) {
-            $invalidProperties[] = "'members' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -220,73 +208,49 @@ class TeamEditForm implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets name
+     * Gets user
      *
-     * @return string
+     * @return int
      */
-    public function getName()
+    public function getUser()
     {
-        return $this->container['name'];
+        return $this->container['user'];
     }
 
     /**
-     * Sets name
+     * Sets user
      *
-     * @param string $name Name of the team
+     * @param int $user User ID
      *
      * @return $this
      */
-    public function setName($name)
+    public function setUser($user)
     {
-        $this->container['name'] = $name;
+        $this->container['user'] = $user;
 
         return $this;
     }
 
     /**
-     * Gets color
+     * Gets teamlead
      *
-     * @return string
+     * @return bool
      */
-    public function getColor()
+    public function getTeamlead()
     {
-        return $this->container['color'];
+        return $this->container['teamlead'];
     }
 
     /**
-     * Sets color
+     * Sets teamlead
      *
-     * @param string $color The hexadecimal color code (default: #d2d6de)
+     * @param bool $teamlead Whether the user is a teamlead
      *
      * @return $this
      */
-    public function setColor($color)
+    public function setTeamlead($teamlead)
     {
-        $this->container['color'] = $color;
-
-        return $this;
-    }
-
-    /**
-     * Gets members
-     *
-     * @return \Swagger\Client\Model\TeamEditFormMembers[]
-     */
-    public function getMembers()
-    {
-        return $this->container['members'];
-    }
-
-    /**
-     * Sets members
-     *
-     * @param \Swagger\Client\Model\TeamEditFormMembers[] $members All team members
-     *
-     * @return $this
-     */
-    public function setMembers($members)
-    {
-        $this->container['members'] = $members;
+        $this->container['teamlead'] = $teamlead;
 
         return $this;
     }
